@@ -1,6 +1,10 @@
 import api from './api.js';
 
 const ui = {
+    limparFormulario() {
+        document.querySelector('#pensamento-form').reset();
+    },
+
     async renderizarPensamentos() {
         debugger;
         const listaPensamentos = document.querySelector('#lista-pensamentos');
