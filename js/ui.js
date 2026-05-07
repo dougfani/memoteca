@@ -14,6 +14,7 @@ const ui = {
 
     async renderizarPensamentos() {
         const listaPensamentos = document.querySelector('#lista-pensamentos');
+        listaPensamentos.innerHTML = '';
 
         try {
             const pensamentos = await api.buscarPensamentos();
@@ -54,9 +55,26 @@ const ui = {
         iconeEditar.alt = 'Editar';
         botaoEditar.append(iconeEditar);
 
+        const botaoExcluir = document.createElement('button');
+        botaoExcluir.classList.add('botao-excluir');
+        botaoExcluir.onclick = async () => {
+            try {
+                await api.excluirPensamento(pensamento.id);
+                ui.renderizarPensamentos();
+            } catch (error) {
+                alert('Erro ao excluir pensamento');
+                throw error;
+            }
+        };
+
+        const iconeExcluir = document.createElement('img');
+        iconeExcluir.src = 'assets/imagens/icone-excluir.png';
+        iconeExcluir.alt = 'Excluir';
+        botaoExcluir.append(iconeExcluir);
+
         const icones = document.createElement('div');
         icones.classList.add('icones');
-        icones.appendChild(botaoEditar);
+        icones.append(botaoEditar, botaoExcluir);
 
         li.append(iconeAspas, pensamentoConteudo, pensamentoAutoria, icones);
         listaPensamentos.append(li);
