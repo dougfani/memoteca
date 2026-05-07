@@ -44,7 +44,10 @@ const ui = {
 
         const botaoEditar = document.createElement('button');
         botaoEditar.classList.add('botao-editar');
-        botaoEditar.onclick = () => ui.preencherFormulario(pensamento.id);
+        botaoEditar.onclick = () => {
+            document.querySelector('#pensamento-conteudo').focus();
+            ui.preencherFormulario(pensamento.id);
+        };
 
         const iconeEditar = document.createElement('img');
         iconeEditar.src = 'assets/imagens/icone-editar.png';
