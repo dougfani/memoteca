@@ -1,12 +1,18 @@
 import api from './api.js';
 
 const ui = {
+    async preencherFormulario(pensamentoId) {
+        const pensamento = await api.buscarPensamentoPorId(pensamentoId);
+        document.querySelector('#pensamento-id').value = pensamento.id;
+        document.querySelector('#pensamento-conteudo').value = pensamento.conteudo;
+        document.querySelector('#pensamento-autoria').value = pensamento.autoria;
+    },
+
     limparFormulario() {
         document.querySelector('#pensamento-form').reset();
     },
 
     async renderizarPensamentos() {
-        debugger;
         const listaPensamentos = document.querySelector('#lista-pensamentos');
 
         try {
@@ -36,7 +42,20 @@ const ui = {
         pensamentoAutoria.textContent = pensamento.autoria;
         pensamentoAutoria.classList.add('pensamento-autoria');
 
-        li.append(iconeAspas, pensamentoConteudo, pensamentoAutoria);
+        const botaoEditar = document.createElement('button');
+        botaoEditar.classList.add('botao-editar');
+        botaoEditar.onclick = () => ui.preencherFormulario(pensamento.id);
+
+        const iconeEditar = document.createElement('img');
+        iconeEditar.src = 'assets/imagens/icone-editar.png';
+        iconeEditar.alt = 'Editar';
+        botaoEditar.append(iconeEditar);
+
+        const icones = document.createElement('div');
+        icones.classList.add('icones');
+        icones.appendChild(botaoEditar);
+
+        li.append(iconeAspas, pensamentoConteudo, pensamentoAutoria, icones);
         listaPensamentos.append(li);
     },
 };
