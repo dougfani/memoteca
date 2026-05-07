@@ -18,6 +18,8 @@ const ui = {
 
         try {
             const pensamentos = await api.buscarPensamentos();
+            console.log(pensamentos);
+
             pensamentos.forEach(ui.adicionarPensamentoNaLista);
         } catch {
             alert('Erro ao renderizar pensamentos');
