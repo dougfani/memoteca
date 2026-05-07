@@ -18,12 +18,27 @@ const ui = {
 
         try {
             const pensamentos = await api.buscarPensamentos();
-            console.log(pensamentos);
-
             pensamentos.forEach(ui.adicionarPensamentoNaLista);
         } catch {
             alert('Erro ao renderizar pensamentos');
         }
+
+        if (listaPensamentos.innerHTML == '') {
+            ui.adicionarListaVazia();
+        }
+    },
+
+    adicionarListaVazia() {
+        const listaPensamentosContainer = document.querySelector('#lista-pensamentos-container');
+
+        const paragrafo = document.createElement('p');
+        paragrafo.textContent = 'Nada por aqui ainda, que tal compartilhar alguma ideia?';
+
+        const imgVazia = document.createElement('img');
+        imgVazia.setAttribute('src', 'assets/imagens/lista-vazia.png');
+        imgVazia.setAttribute('alt', 'Imagem de gaveta vazia');
+
+        listaPensamentosContainer.append(paragrafo, imgVazia);
     },
 
     adicionarPensamentoNaLista(pensamento) {
